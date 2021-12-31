@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_dateAsc"
+        android:title="@string/date_ascending" />
+    <item
+        android:id="@+id/menu_timeAsc"
+        android:title="@string/time_ascending" />
+    <item
+        android:id="@+id/menu_roomAtoZ"
+        android:title="@string/room_a_z" />
+</menu>
