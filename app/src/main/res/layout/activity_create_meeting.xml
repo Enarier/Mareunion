@@ -6,71 +6,99 @@
     android:layout_height="match_parent"
     tools:context=".ui.CreateMeetingActivity">
 
-    <Button
-        android:id="@+id/date"
-        android:layout_width="wrap_content"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout_subject"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="340dp"
-        android:layout_marginEnd="8dp"
-        android:text="Date"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.004"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="340dp"
-        android:layout_marginEnd="100dp"
-        android:text="Time"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.759"
-        app:layout_constraintStart_toEndOf="@+id/date"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Spinner
-        android:id="@+id/add_participants"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
-        app:layout_constraintEnd_toEndOf="@+id/choose_room"
-        app:layout_constraintStart_toStartOf="@+id/choose_room"
-        app:layout_constraintTop_toBottomOf="@+id/choose_room" />
-
-    <Spinner
-        android:id="@+id/choose_room"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        app:layout_constraintEnd_toEndOf="@+id/meeting_topic"
-        app:layout_constraintStart_toStartOf="@+id/meeting_topic"
-        app:layout_constraintTop_toBottomOf="@+id/meeting_topic" />
-
-    <EditText
-        android:id="@+id/meeting_topic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:ems="10"
-        android:hint="Meeting Topic"
-        android:inputType="textPersonName"
+        android:layout_marginEnd="32dp"
+        app:counterEnabled="true"
+        app:counterMaxLength="20"
+        app:endIconMode="clear_text"
+        app:helperText="Required"
+        app:helperTextTextColor="@color/red"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:startIconDrawable="@drawable/ic_meeting_topic_24">
 
-    <Button
-        android:id="@+id/create_meeting"
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/topic" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Spinner
+        android:id="@+id/spinner_room"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="64dp"
-        android:text="create meeting"
+        android:layout_marginTop="24dp"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="@+id/textInputLayout_subject"
+        app:layout_constraintStart_toStartOf="@+id/textInputLayout_subject"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout_subject" />
+
+    <Button
+        android:id="@+id/button_createMeeting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:text="@string/create_meeting"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/editText_date"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:inputType="date"
+        app:layout_constraintEnd_toStartOf="@+id/editText_startingTime"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner_room" />
+
+    <EditText
+        android:id="@+id/editText_startingTime"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:inputType="time"
+        app:layout_constraintBaseline_toBaselineOf="@+id/editText_date"
+        app:layout_constraintEnd_toStartOf="@+id/editText_endTime"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/editText_date" />
+
+    <EditText
+        android:id="@+id/editText_endTime"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:inputType="time"
+        app:layout_constraintBaseline_toBaselineOf="@+id/editText_startingTime"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/editText_startingTime" />
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chip_participantsEmail"
+        android:layout_width="350dp"
+        android:layout_height="214dp"
+        tools:layout_editor_absoluteX="32dp"
+        tools:layout_editor_absoluteY="293dp">
+
+    </com.google.android.material.chip.ChipGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

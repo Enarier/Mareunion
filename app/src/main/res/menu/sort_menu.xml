@@ -3,12 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/menu_dateAsc"
-        android:title="@string/date_ascending" />
+        android:id="@+id/menu_date"
+        android:title="@string/date" />
     <item
-        android:id="@+id/menu_timeAsc"
-        android:title="@string/time_ascending" />
+        android:id="@+id/menu_room"
+        android:title="@string/room" />
     <item
-        android:id="@+id/menu_roomAtoZ"
-        android:title="@string/room_a_z" />
+        android:id="@+id/menu_default"
+        android:title="Default" />
 </menu>

@@ -21,27 +21,6 @@ public class Meeting {
         mParticipantEmail = participantEmail;
     }
 
-    public static Comparator<Meeting> MeetingDateAscendingComparator = new Comparator<Meeting>() {
-        @Override
-        public int compare(Meeting m1, Meeting m2) {
-            return m1.getDate().compareTo(m2.getDate());
-        }
-    };
-
-    public static Comparator<Meeting> MeetingStartingTimeAscendingComparator = new Comparator<Meeting>() {
-        @Override
-        public int compare(Meeting m1, Meeting m2) {
-            return m1.getStartingTime().compareTo(m2.getStartingTime());
-        }
-    };
-
-    public static Comparator<Meeting> MeetingRoomAZComparator = new Comparator<Meeting>() {
-        @Override
-        public int compare(Meeting m1, Meeting m2) {
-            return m1.getRoom().getName().compareTo(m2.getRoom().getName());
-        }
-    };
-
     public Room getRoom() {
         return mRoom;
     }

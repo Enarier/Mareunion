@@ -3,11 +3,13 @@ package com.openclassrooms.mareunion.service;
 import com.openclassrooms.mareunion.model.Meeting;
 import com.openclassrooms.mareunion.model.Room;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DummyMeetingApiService implements MeetingApiService{
 
     private List<Meeting> mMeetings = DummyMeetingGenerator.generateMeetings();
+    private List<Meeting> mMeetingsDate = new ArrayList<>(mMeetings);
 
     @Override
     public List<Meeting> getMeetings() {
@@ -25,7 +27,12 @@ public class DummyMeetingApiService implements MeetingApiService{
     }
 
     @Override
-    public void sortMeeting(Meeting meeting) {
+    public void filterByDate(String date) {
+
+    }
+
+    @Override
+    public void filterByRoom(Room room) {
 
     }
 

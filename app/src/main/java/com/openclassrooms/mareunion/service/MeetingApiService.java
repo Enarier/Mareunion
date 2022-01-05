@@ -13,7 +13,10 @@ public interface MeetingApiService {
 
     void deleteMeeting(Meeting meeting);
 
-    void sortMeeting(Meeting meeting);
+//  1 method filter by date and 1 method filter by room
+    void filterByDate(String date);
+
+    void filterByRoom(Room room);
 
     List<Room> availableRoom();
 }

@@ -17,7 +17,7 @@ public abstract class DummyMeetingGenerator {
             new Room("Salle B", R.color.teal_700),
             new Room("Salle C", R.color.purple_700),
             new Room("Salle D", R.color.teal_200),
-            new Room("Salle E", R.color.fab_createMeeting)
+            new Room("Salle E", R.color.red)
     );
 
     public static List<String> PARTICIPANTS_EMAIL = Arrays.asList(

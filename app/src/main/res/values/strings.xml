@@ -1,7 +1,10 @@
 <resources>
     <string name="app_name">Ma reunion</string>
-    <string name="date_ascending">Date Ascending</string>
-    <string name="time_ascending">Time Ascending</string>
-    <string name="room_a_z">Room A -> Z</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
+    <string name="meeting_topic">Meeting Topic</string>
+    <string name="create_meeting">create meeting</string>
+    <string name="topic">Topic</string>
+    <string name="room">Room</string>
 
 </resources>
