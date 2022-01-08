@@ -1,9 +1,12 @@
 package com.openclassrooms.mareunion.ui;
 
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -16,9 +19,10 @@ import com.openclassrooms.mareunion.model.Meeting;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecyclerViewAdapter.MeetingViewHolder> {
+public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecyclerViewAdapter.MeetingViewHolder>{
 
     private final List<Meeting> mMeetingList;
 
@@ -42,7 +46,9 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
         holder.mListItemBinding.roomSubject.setText(mMeeting.getSubject() + " - ");
         holder.mListItemBinding.startingTime.setText(mMeeting.getStartingTime() + " - ");
         holder.mListItemBinding.roomName.setText(mMeeting.getRoom().getName());
-//        holder.mListItemBinding.roomColor.setBackgroundResource(mMeeting.getRoom().getColor());
+        holder.mListItemBinding.roomColor.setBackgroundResource(R.drawable.circle);
+        GradientDrawable drawable = (GradientDrawable) holder.mListItemBinding.roomColor.getBackground();
+        drawable.setColor(ContextCompat.getColor(holder.mListItemBinding.roomColor.getContext(), mMeeting.getRoom().getColor()));
 
         String emails = "";
         for(int i = 0; i < mMeeting.getParticipantEmail().size(); i++) {
@@ -73,4 +79,5 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
             mListItemBinding = listItemBinding;
         }
     }
+
 }

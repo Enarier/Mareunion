@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
-
     <item
-        android:id="@+id/menu_date"
-        android:title="@string/date" />
-    <item
-        android:id="@+id/menu_room"
-        android:title="@string/room" />
-    <item
-        android:id="@+id/menu_default"
-        android:title="Default" />
+        android:id="@+id/menu_filterIcon"
+        android:icon="@drawable/ic_filter_list_24"
+        android:title="@string/filtericon"
+        app:showAsAction="ifRoom">
+        <menu>
+            <item
+                android:id="@+id/menuItem_date"
+                android:title="@string/date" />
+            <item
+                android:id="@+id/menuItem_room"
+                android:title="@string/room" />
+            <item
+                android:id="@+id/menuItem_reset"
+                android:title="@string/reset" />
+        </menu>
+    </item>
 </menu>

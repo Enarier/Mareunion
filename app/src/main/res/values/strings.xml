@@ -6,5 +6,7 @@
     <string name="create_meeting">create meeting</string>
     <string name="topic">Topic</string>
     <string name="room">Room</string>
+    <string name="reset">Reset</string>
+    <string name="filtericon">filterIcon</string>
 
 </resources>

@@ -6,13 +6,14 @@ import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.DatePicker;
 
 import com.openclassrooms.mareunion.R;
 import com.openclassrooms.mareunion.databinding.ActivityMainBinding;
@@ -24,10 +25,14 @@ import com.openclassrooms.mareunion.service.MeetingApiService;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
     private Menu mMenu;
 
@@ -35,8 +40,8 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
-    private MeetingApiService mApiService = DI.getMeetingApiService();
-    private List<Meeting> mMeetingsList = mApiService.getMeetings();
+    private MeetingApiService mApiService;
+    private List<Meeting> mMeetingsList;
 
     private ActivityMainBinding mActivityMainBinding;
 
@@ -48,7 +53,14 @@ public class MainActivity extends AppCompatActivity {
         View view = mActivityMainBinding.getRoot();
         setContentView(view);
 
+        init();
         initRecyclerView();
+
+    }
+
+    private void init() {
+        MeetingApiService mApiService = DI.getMeetingApiService();
+        List<Meeting> mMeetingsList = mApiService.getMeetings();
 
         mActivityMainBinding.createMeetingFAB.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,31 +68,6 @@ public class MainActivity extends AppCompatActivity {
                 createMeeting();
             }
         });
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.sort_menu, menu);
-
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_date:
-                showDatePickerDialog();
-                break;
-
-            case R.id.menu_room:
-
-
-            case R.id.menu_default:
-
-
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     private void initRecyclerView() {
@@ -97,9 +84,47 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.sort_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuItem_date:
+                showDatePickerDialog();
+
+                return true;
+
+            case R.id.menuItem_room:
+                return true;
+
+            case R.id.menuItem_reset:
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     private void showDatePickerDialog() {
         DialogFragment mDatePickerFragment = new DatePickerFragment();
         mDatePickerFragment.show(getSupportFragmentManager(), "datePicker");
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, year);
+        c.set(Calendar.MONTH, month);
+        c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+        DateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String pickedDateString = simpleDateFormat.format(c.getTime());
+
+        List<Meeting> mMeetingsListFiltered =  mApiService.filterMeetingsByDate(pickedDateString);
+        mRecyclerView.setAdapter(new MeetingRecyclerViewAdapter(mMeetingsListFiltered));
     }
 
     /**
@@ -123,4 +148,5 @@ public class MainActivity extends AppCompatActivity {
         mApiService.deleteMeeting(event.mMeeting);
         initRecyclerView();
     }
+
 }

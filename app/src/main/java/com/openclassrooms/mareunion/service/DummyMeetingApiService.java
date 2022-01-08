@@ -9,7 +9,9 @@ import java.util.List;
 public class DummyMeetingApiService implements MeetingApiService{
 
     private List<Meeting> mMeetings = DummyMeetingGenerator.generateMeetings();
-    private List<Meeting> mMeetingsDate = new ArrayList<>(mMeetings);
+    private List<Meeting> mMeetingsFilteredByDate = new ArrayList<>();
+    private List<Meeting> mMeetingsFilteredByRoom = new ArrayList<>();
+
 
     @Override
     public List<Meeting> getMeetings() {
@@ -27,13 +29,20 @@ public class DummyMeetingApiService implements MeetingApiService{
     }
 
     @Override
-    public void filterByDate(String date) {
+    public List<Meeting> filterMeetingsByDate(String date) {
+        mMeetingsFilteredByDate.clear();
 
+        for (Meeting mMeeting : mMeetings) {
+            if (mMeeting.getDate().equals(date)) {
+                mMeetingsFilteredByDate.add(mMeeting);
+            }
+        }
+        return mMeetingsFilteredByDate;
     }
 
     @Override
-    public void filterByRoom(Room room) {
-
+    public List<Meeting> filterMeetingsByRoom(Room room) {
+        return mMeetingsFilteredByRoom;
     }
 
     @Override

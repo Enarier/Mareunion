@@ -13,10 +13,9 @@ public interface MeetingApiService {
 
     void deleteMeeting(Meeting meeting);
 
-//  1 method filter by date and 1 method filter by room
-    void filterByDate(String date);
+    List<Meeting> filterMeetingsByDate(String date);
 
-    void filterByRoom(Room room);
+    List<Meeting> filterMeetingsByRoom(Room room);
 
     List<Room> availableRoom();
 }
