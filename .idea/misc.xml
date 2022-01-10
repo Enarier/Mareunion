@@ -8,8 +8,13 @@
         <entry key="..\:/Users/user/Desktop/Mareunion/app/src/main/res/drawable/ic_liverpool_background.xml" value="0.2703125" />
         <entry key="..\:/Users/user/Desktop/Mareunion/app/src/main/res/layout/activity_create_meeting.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/user/Desktop/Mareunion/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/user/Desktop/Mareunion/app/src/main/res/layout/fragment_room_dialog.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/user/Desktop/Mareunion/app/src/main/res/layout/item.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/user/Desktop/Mareunion/app/src/main/res/layout/list_item.xml" value="0.1" />
+        <entry key="..\:/Users/user/Desktop/Mareunion/app/src/main/res/layout/list_Meeting_item.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/user/Desktop/Mareunion/app/src/main/res/layout/list_Room_item.xml" value="0.536" />
+        <entry key="..\:/Users/user/Desktop/Mareunion/app/src/main/res/layout/list_item.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/user/Desktop/Mareunion/app/src/main/res/layout/list_meeting_item.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/user/Desktop/Mareunion/app/src/main/res/layout/list_room_item.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/user/Desktop/Mareunion/app/src/main/res/menu/sort_menu.xml" value="0.25416666666666665" />
       </map>
     </option>

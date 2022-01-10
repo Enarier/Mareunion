@@ -8,5 +8,6 @@
     <string name="room">Room</string>
     <string name="reset">Reset</string>
     <string name="filtericon">filterIcon</string>
+    <string name="please_select_a_room_from_the_list">Please select a room from the list</string>
 
 </resources>

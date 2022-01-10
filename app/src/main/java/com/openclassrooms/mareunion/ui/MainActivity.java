@@ -28,8 +28,6 @@ import org.greenrobot.eventbus.Subscribe;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
@@ -54,13 +52,13 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         setContentView(view);
 
         init();
-        initRecyclerView();
+        setUpRecyclerView();
 
     }
 
     private void init() {
-        MeetingApiService mApiService = DI.getMeetingApiService();
-        List<Meeting> mMeetingsList = mApiService.getMeetings();
+        mApiService = DI.getMeetingApiService();
+        mMeetingsList = mApiService.getMeetings();
 
         mActivityMainBinding.createMeetingFAB.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         });
     }
 
-    private void initRecyclerView() {
+    private void setUpRecyclerView() {
         mRecyclerView = mActivityMainBinding.meetingRecyclerView;
         mLayoutManager = new LinearLayoutManager(this);
         mAdapter = new MeetingRecyclerViewAdapter(mMeetingsList);
@@ -96,18 +94,22 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         switch (item.getItemId()) {
             case R.id.menuItem_date:
                 showDatePickerDialog();
-
                 return true;
 
             case R.id.menuItem_room:
+                showRoomDialog();
                 return true;
 
             case R.id.menuItem_reset:
+                mRecyclerView.setAdapter(mAdapter);
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * DatePickerDialog codes
+     */
     private void showDatePickerDialog() {
         DialogFragment mDatePickerFragment = new DatePickerFragment();
         mDatePickerFragment.show(getSupportFragmentManager(), "datePicker");
@@ -128,9 +130,16 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     }
 
     /**
+     * RoomDialog codes
+     */
+    private void showRoomDialog() {
+        DialogFragment mRoomDialogFragment = RoomDialogFragment.newInstance();
+        mRoomDialogFragment.show(getSupportFragmentManager(), "roomDialog");
+    }
+
+    /**
      * Eventbus codes
      */
-
     @Override
     protected void onStart() {
         EventBus.getDefault().register(this);
@@ -146,7 +155,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     @Subscribe
     public void onDeleteMeeting(DeleteMeetingEvent event) {
         mApiService.deleteMeeting(event.mMeeting);
-        initRecyclerView();
+        setUpRecyclerView();
     }
 
 }

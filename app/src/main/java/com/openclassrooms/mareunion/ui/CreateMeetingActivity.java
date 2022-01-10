@@ -14,7 +14,10 @@ import com.openclassrooms.mareunion.databinding.ActivityCreateMeetingBinding;
 
 import com.openclassrooms.mareunion.service.MeetingApiService;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class CreateMeetingActivity extends AppCompatActivity {
 
@@ -32,12 +35,16 @@ public class CreateMeetingActivity extends AppCompatActivity {
         View view = mActivityCreateMeetingBinding.getRoot();
         setContentView(view);
 
+        DateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String currentDate = simpleDateFormat.format(new Date());
+        mActivityCreateMeetingBinding.editTextDate.setText(currentDate);
         mActivityCreateMeetingBinding.editTextDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDatePickerDialog();
             }
         });
+
 
         mActivityCreateMeetingBinding.editTextStartingTime.setOnClickListener(new View.OnClickListener() {
             @Override

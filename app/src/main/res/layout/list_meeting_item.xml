@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
     <View
-        android:id="@+id/room_color"
+        android:id="@+id/imageView_roomColor"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="16dp"
@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/room_subject"
+        android:id="@+id/meeting_subject"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -30,8 +30,8 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/delete_button"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/room_color"
-        app:layout_constraintTop_toTopOf="@+id/room_color"
+        app:layout_constraintStart_toEndOf="@+id/imageView_roomColor"
+        app:layout_constraintTop_toTopOf="@+id/imageView_roomColor"
         tools:text="Reunion A" />
 
     <TextView
@@ -41,20 +41,20 @@
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBaseline_toBaselineOf="@+id/room_subject"
+        app:layout_constraintBaseline_toBaselineOf="@+id/meeting_subject"
         app:layout_constraintEnd_toStartOf="@+id/delete_button"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/room_subject"
+        app:layout_constraintStart_toEndOf="@+id/meeting_subject"
         tools:text=" - 14h00" />
 
     <TextView
-        android:id="@+id/room_name"
+        android:id="@+id/textView_roomName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBaseline_toBaselineOf="@+id/room_subject"
+        app:layout_constraintBaseline_toBaselineOf="@+id/meeting_subject"
         app:layout_constraintEnd_toStartOf="@+id/delete_button"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/starting_time"
@@ -68,10 +68,10 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/room_color"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView_roomColor"
         app:layout_constraintEnd_toStartOf="@+id/delete_button"
-        app:layout_constraintStart_toEndOf="@+id/room_color"
-        app:layout_constraintTop_toBottomOf="@+id/room_subject"
+        app:layout_constraintStart_toEndOf="@+id/imageView_roomColor"
+        app:layout_constraintTop_toBottomOf="@+id/meeting_subject"
         tools:text="maximus@lamzone.com, alex@..." />
 
     <ImageButton
@@ -82,7 +82,7 @@
         android:backgroundTint="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/email"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/room_subject"
+        app:layout_constraintTop_toTopOf="@+id/meeting_subject"
         app:srcCompat="@drawable/ic_item_delete_button_24" />
 
 

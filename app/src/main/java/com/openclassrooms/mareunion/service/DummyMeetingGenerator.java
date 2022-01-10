@@ -45,4 +45,8 @@ public abstract class DummyMeetingGenerator {
         return new ArrayList<>(DUMMY_MEETINGS);
     }
 
+    public static List<Room> generateRooms() {
+        return new ArrayList<>(DUMMY_ROOMS);
+    }
+
 }

@@ -17,5 +17,5 @@ public interface MeetingApiService {
 
     List<Meeting> filterMeetingsByRoom(Room room);
 
-    List<Room> availableRoom();
+    List<Room> getRooms();
 }

@@ -1,25 +1,21 @@
 package com.openclassrooms.mareunion.ui;
 
-import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.openclassrooms.mareunion.R;
-import com.openclassrooms.mareunion.databinding.ListItemBinding;
+import com.openclassrooms.mareunion.databinding.ListMeetingItemBinding;
 import com.openclassrooms.mareunion.event.DeleteMeetingEvent;
 import com.openclassrooms.mareunion.model.Meeting;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecyclerViewAdapter.MeetingViewHolder>{
@@ -34,29 +30,30 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
     @Override
     public MeetingViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater mLayoutInflater = LayoutInflater.from(parent.getContext());
-        ListItemBinding mListItemBinding = ListItemBinding.inflate(mLayoutInflater, parent, false);
+        ListMeetingItemBinding mListMeetingItemBinding = ListMeetingItemBinding.inflate(mLayoutInflater, parent, false);
 
-        return new MeetingViewHolder(mListItemBinding);
+        return new MeetingViewHolder(mListMeetingItemBinding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MeetingViewHolder holder, int position) {
         Meeting mMeeting = mMeetingList.get(position);
 
-        holder.mListItemBinding.roomSubject.setText(mMeeting.getSubject() + " - ");
-        holder.mListItemBinding.startingTime.setText(mMeeting.getStartingTime() + " - ");
-        holder.mListItemBinding.roomName.setText(mMeeting.getRoom().getName());
-        holder.mListItemBinding.roomColor.setBackgroundResource(R.drawable.circle);
-        GradientDrawable drawable = (GradientDrawable) holder.mListItemBinding.roomColor.getBackground();
-        drawable.setColor(ContextCompat.getColor(holder.mListItemBinding.roomColor.getContext(), mMeeting.getRoom().getColor()));
+        holder.mListMeetingItemBinding.meetingSubject.setText(mMeeting.getSubject() + " - ");
+        holder.mListMeetingItemBinding.startingTime.setText(mMeeting.getStartingTime() + " - ");
+        holder.mListMeetingItemBinding.textViewRoomName.setText(mMeeting.getRoom().getName());
+
+        holder.mListMeetingItemBinding.imageViewRoomColor.setBackgroundResource(R.drawable.circle);
+        GradientDrawable drawable = (GradientDrawable) holder.mListMeetingItemBinding.imageViewRoomColor.getBackground();
+        drawable.setColor(ContextCompat.getColor(holder.mListMeetingItemBinding.imageViewRoomColor.getContext(), mMeeting.getRoom().getColor()));
 
         String emails = "";
         for(int i = 0; i < mMeeting.getParticipantEmail().size(); i++) {
             emails = emails + mMeeting.getParticipantEmail().get(i) + ", ";
         }
-        holder.mListItemBinding.email.setText(emails);
+        holder.mListMeetingItemBinding.email.setText(emails);
 
-        holder.mListItemBinding.deleteButton.setOnClickListener(new View.OnClickListener() {
+        holder.mListMeetingItemBinding.deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 EventBus.getDefault().post(new DeleteMeetingEvent(mMeeting));
@@ -72,11 +69,11 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
 
     public static class MeetingViewHolder extends RecyclerView.ViewHolder {
 
-        ListItemBinding mListItemBinding;
+        ListMeetingItemBinding mListMeetingItemBinding;
 
-        public MeetingViewHolder(@NonNull ListItemBinding listItemBinding) {
-            super(listItemBinding.getRoot());
-            mListItemBinding = listItemBinding;
+        public MeetingViewHolder(@NonNull ListMeetingItemBinding listMeetingItemBinding) {
+            super(listMeetingItemBinding.getRoot());
+            mListMeetingItemBinding = listMeetingItemBinding;
         }
     }
 
