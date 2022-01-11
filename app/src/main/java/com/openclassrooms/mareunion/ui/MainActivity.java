@@ -19,6 +19,7 @@ import com.openclassrooms.mareunion.R;
 import com.openclassrooms.mareunion.databinding.ActivityMainBinding;
 import com.openclassrooms.mareunion.di.DI;
 import com.openclassrooms.mareunion.event.DeleteMeetingEvent;
+import com.openclassrooms.mareunion.event.RoomRecyclerViewItemClickEvent;
 import com.openclassrooms.mareunion.model.Meeting;
 import com.openclassrooms.mareunion.service.MeetingApiService;
 
@@ -133,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
      * RoomDialog codes
      */
     private void showRoomDialog() {
-        DialogFragment mRoomDialogFragment = RoomDialogFragment.newInstance();
+        DialogFragment mRoomDialogFragment = new RoomDialogFragment();
         mRoomDialogFragment.show(getSupportFragmentManager(), "roomDialog");
     }
 
@@ -158,4 +159,11 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         setUpRecyclerView();
     }
 
+    @Subscribe
+    public void recyclerViewItemClicked(RoomRecyclerViewItemClickEvent event) {
+        mApiService.filterMeetingsByRoom(event.mRoom);
+        List<Meeting> mMeetingsListFiltered =  mApiService.filterMeetingsByRoom(event.mRoom);
+        mRecyclerView.setAdapter(new MeetingRecyclerViewAdapter(mMeetingsListFiltered));
+
+    }
 }

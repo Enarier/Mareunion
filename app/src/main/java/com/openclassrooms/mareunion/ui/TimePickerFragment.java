@@ -2,6 +2,7 @@ package com.openclassrooms.mareunion.ui;
 
 
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
@@ -23,7 +24,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class TimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
+public class TimePickerFragment extends DialogFragment {
 
     ActivityCreateMeetingBinding mActivityCreateMeetingBinding;
 
@@ -34,13 +35,7 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
         int hour = c.get(Calendar.HOUR_OF_DAY);
         int minute = c.get(Calendar.MINUTE);
 
-        return new TimePickerDialog(getActivity(),this, hour, minute, true);
-    }
-
-
-    @Override
-    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-
+        return new TimePickerDialog(getActivity(),(TimePickerDialog.OnTimeSetListener) getActivity(), hour, minute, true);
     }
 
     @Nullable

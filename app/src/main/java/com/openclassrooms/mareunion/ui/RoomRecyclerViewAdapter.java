@@ -2,35 +2,41 @@ package com.openclassrooms.mareunion.ui;
 
 import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.openclassrooms.mareunion.R;
 import com.openclassrooms.mareunion.databinding.ListRoomItemBinding;
+import com.openclassrooms.mareunion.event.RoomRecyclerViewItemClickEvent;
 import com.openclassrooms.mareunion.model.Room;
+import com.openclassrooms.mareunion.service.MeetingApiService;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
 public class RoomRecyclerViewAdapter extends RecyclerView.Adapter<RoomRecyclerViewAdapter.RoomViewHolder> {
 
-    private List<Room> mRoomList;
+    ListRoomItemBinding mListRoomItemBinding;
 
-//    public RoomRecyclerViewAdapter(List<Room> roomList) {
-//        mRoomList = roomList;
-//    }
-    public void setData(List<Room> roomList) {
+    private List<Room> mRoomList;
+    private MeetingApiService mApiService;
+    private DialogFragment mRoomDialogFragment;
+
+    public RoomRecyclerViewAdapter(List<Room> roomList, DialogFragment roomDialogFragment) {
         mRoomList = roomList;
-        notifyDataSetChanged();
+        mRoomDialogFragment = roomDialogFragment;
     }
 
     @NonNull
     @Override
     public RoomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater mLayoutInflater = LayoutInflater.from(parent.getContext());
-        ListRoomItemBinding mListRoomItemBinding = ListRoomItemBinding.inflate(mLayoutInflater, parent, false);
+        mListRoomItemBinding = ListRoomItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
 
         return new RoomViewHolder(mListRoomItemBinding);
     }
@@ -45,6 +51,13 @@ public class RoomRecyclerViewAdapter extends RecyclerView.Adapter<RoomRecyclerVi
 
         holder.mListRoomItemBinding.textViewRoomName.setText(mRoom.getName());
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EventBus.getDefault().post(new RoomRecyclerViewItemClickEvent(mRoom));
+                mRoomDialogFragment.dismiss();
+            }
+        });
     }
 
     @Override
