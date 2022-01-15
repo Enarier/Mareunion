@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         app:counterEnabled="true"
         app:counterMaxLength="20"
@@ -35,11 +35,102 @@
         android:id="@+id/spinner_room"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="@+id/textInputLayout_subject"
         app:layout_constraintStart_toStartOf="@+id/textInputLayout_subject"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout_subject" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout_date"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:counterEnabled="false"
+        app:endIconMode="clear_text"
+        app:helperText="Required"
+        app:helperTextTextColor="@color/red"
+        app:hintEnabled="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner_room"
+        app:startIconDrawable="@drawable/ic_edit_calendar_24">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textInputEditText_date"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusable="false"
+            android:hint="@string/date" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout_startingTime"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        app:counterEnabled="false"
+        app:endIconMode="clear_text"
+        app:helperText="Required"
+        app:helperTextTextColor="@color/red"
+        app:layout_constraintEnd_toStartOf="@+id/textInputLayout_finishingTime"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout_date"
+        app:startIconDrawable="@drawable/ic_access_time_24">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textInputEditText_startingTime"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusable="false"
+            android:hint="@string/starting_time" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout_finishingTime"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        app:counterEnabled="false"
+        app:endIconMode="clear_text"
+        app:helperText="Required"
+        app:helperTextTextColor="@color/red"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textInputLayout_startingTime"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@+id/textInputLayout_startingTime"
+        app:startIconDrawable="@drawable/ic_access_time_24">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textInputEditText_finishingTime"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusable="false"
+            android:hint="@string/finishing_time" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipGroup_participantsEmail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout_startingTime">
+
+    </com.google.android.material.chip.ChipGroup>
 
     <Button
         android:id="@+id/button_createMeeting"
@@ -51,54 +142,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:id="@+id/editText_date"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="24dp"
-        android:ems="10"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        android:inputType="date"
-        app:layout_constraintEnd_toStartOf="@+id/editText_startingTime"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner_room" />
-
-    <EditText
-        android:id="@+id/editText_startingTime"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:ems="10"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        android:inputType="time"
-        app:layout_constraintBaseline_toBaselineOf="@+id/editText_date"
-        app:layout_constraintEnd_toStartOf="@+id/editText_endTime"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/editText_date" />
-
-    <EditText
-        android:id="@+id/editText_endTime"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:ems="10"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        android:inputType="time"
-        app:layout_constraintBaseline_toBaselineOf="@+id/editText_startingTime"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/editText_startingTime" />
-
-    <com.google.android.material.chip.ChipGroup
-        android:id="@+id/chip_participantsEmail"
-        android:layout_width="350dp"
-        android:layout_height="214dp"
-        tools:layout_editor_absoluteX="32dp"
-        tools:layout_editor_absoluteY="293dp">
-
-    </com.google.android.material.chip.ChipGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

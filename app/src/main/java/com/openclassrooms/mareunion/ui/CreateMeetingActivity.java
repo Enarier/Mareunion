@@ -21,11 +21,11 @@ import java.util.Date;
 
 public class CreateMeetingActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener{
 
+    private ActivityCreateMeetingBinding mActivityCreateMeetingBinding;
+
     private Calendar c = Calendar.getInstance();
 
     private MeetingApiService mApiService;
-
-    private ActivityCreateMeetingBinding mActivityCreateMeetingBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +35,7 @@ public class CreateMeetingActivity extends AppCompatActivity implements DatePick
         View view = mActivityCreateMeetingBinding.getRoot();
         setContentView(view);
 
-
-        mActivityCreateMeetingBinding.editTextDate.setOnClickListener(new View.OnClickListener() {
+        mActivityCreateMeetingBinding.textInputLayoutDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDatePickerDialog();
@@ -44,14 +43,14 @@ public class CreateMeetingActivity extends AppCompatActivity implements DatePick
         });
 
 
-        mActivityCreateMeetingBinding.editTextStartingTime.setOnClickListener(new View.OnClickListener() {
+        mActivityCreateMeetingBinding.textInputLayoutStartingTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showTimePickerDialog();
             }
         });
 
-        mActivityCreateMeetingBinding.editTextEndTime.setOnClickListener(new View.OnClickListener() {
+        mActivityCreateMeetingBinding.textInputLayoutFinishingTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showTimePickerDialog();
@@ -79,7 +78,7 @@ public class CreateMeetingActivity extends AppCompatActivity implements DatePick
 
         DateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String pickedDateString = simpleDateFormat.format(c.getTime());
-        mActivityCreateMeetingBinding.editTextDate.setText(pickedDateString);
+        mActivityCreateMeetingBinding.textInputEditTextDate.setText(pickedDateString);
     }
 
     private void showTimePickerDialog() {
@@ -94,7 +93,7 @@ public class CreateMeetingActivity extends AppCompatActivity implements DatePick
 
         DateFormat simpleDateFormat = new SimpleDateFormat("hh:mm");
         String pickedDateString = simpleDateFormat.format(c.getTime());
-        mActivityCreateMeetingBinding.editTextStartingTime.setText(pickedDateString);
+        mActivityCreateMeetingBinding.textInputEditTextStartingTime.setText(pickedDateString);
     }
 
     private void createMeeting() {

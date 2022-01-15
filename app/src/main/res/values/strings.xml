@@ -2,6 +2,8 @@
     <string name="app_name">Ma reunion</string>
     <string name="date">Date</string>
     <string name="time">Time</string>
+    <string name="starting_time">Starting Time</string>
+    <string name="finishing_time">finishing Time</string>
     <string name="meeting_topic">Meeting Topic</string>
     <string name="create_meeting">create meeting</string>
     <string name="topic">Topic</string>

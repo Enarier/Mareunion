@@ -1,9 +1,11 @@
 package com.openclassrooms.mareunion.ui;
 
 import android.graphics.drawable.GradientDrawable;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -12,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.openclassrooms.mareunion.R;
 import com.openclassrooms.mareunion.databinding.ListRoomItemBinding;
+import com.openclassrooms.mareunion.databinding.ToastBinding;
 import com.openclassrooms.mareunion.event.RoomRecyclerViewItemClickEvent;
 import com.openclassrooms.mareunion.model.Room;
 import com.openclassrooms.mareunion.service.MeetingApiService;
@@ -55,6 +58,7 @@ public class RoomRecyclerViewAdapter extends RecyclerView.Adapter<RoomRecyclerVi
             @Override
             public void onClick(View v) {
                 EventBus.getDefault().post(new RoomRecyclerViewItemClickEvent(mRoom));
+                Toast.makeText(holder.itemView.getContext(), mRoom.getName() + " selected", Toast.LENGTH_SHORT).show();
                 mRoomDialogFragment.dismiss();
             }
         });

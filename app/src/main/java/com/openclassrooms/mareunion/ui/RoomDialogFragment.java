@@ -28,23 +28,17 @@ public class RoomDialogFragment extends DialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mApiService = DI.getMeetingApiService();
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mFragmentRoomDialogBinding = FragmentRoomDialogBinding.inflate(inflater, container, false);
-
-        mApiService = DI.getMeetingApiService();
-        List<Room> mRoomList = mApiService.getRooms();
-
-        RoomRecyclerViewAdapter mAdapter = new RoomRecyclerViewAdapter(mRoomList, RoomDialogFragment.this);
         mFragmentRoomDialogBinding.recyclerView.setLayoutManager(new LinearLayoutManager(mFragmentRoomDialogBinding.getRoot().getContext()));
-        mFragmentRoomDialogBinding.recyclerView.setAdapter(mAdapter);
 
         return mFragmentRoomDialogBinding.getRoot();
     }
-
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -55,10 +49,15 @@ public class RoomDialogFragment extends DialogFragment {
     public void onResume() {
         super.onResume();
         ViewGroup.LayoutParams params = getDialog().getWindow().getAttributes();
+
         // Make DialogFragment's size to MATCH_PARENT
         params.width = ViewGroup.LayoutParams.MATCH_PARENT;
         params.height = ViewGroup.LayoutParams.MATCH_PARENT;
         getDialog().getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);
+
+        // Init List
+        List<Room> mRoomList = mApiService.getRooms();
+        mFragmentRoomDialogBinding.recyclerView.setAdapter(new RoomRecyclerViewAdapter(mRoomList, RoomDialogFragment.this));
     }
 
     @Override
