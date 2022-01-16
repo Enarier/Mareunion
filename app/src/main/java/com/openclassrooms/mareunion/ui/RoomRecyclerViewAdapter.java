@@ -28,12 +28,9 @@ public class RoomRecyclerViewAdapter extends RecyclerView.Adapter<RoomRecyclerVi
     ListRoomItemBinding mListRoomItemBinding;
 
     private List<Room> mRoomList;
-    private MeetingApiService mApiService;
-    private DialogFragment mRoomDialogFragment;
 
-    public RoomRecyclerViewAdapter(List<Room> roomList, DialogFragment roomDialogFragment) {
+    public RoomRecyclerViewAdapter(List<Room> roomList) {
         mRoomList = roomList;
-        mRoomDialogFragment = roomDialogFragment;
     }
 
     @NonNull
@@ -59,7 +56,6 @@ public class RoomRecyclerViewAdapter extends RecyclerView.Adapter<RoomRecyclerVi
             public void onClick(View v) {
                 EventBus.getDefault().post(new RoomRecyclerViewItemClickEvent(mRoom));
                 Toast.makeText(holder.itemView.getContext(), mRoom.getName() + " selected", Toast.LENGTH_SHORT).show();
-                mRoomDialogFragment.dismiss();
             }
         });
     }

@@ -13,9 +13,15 @@ import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.openclassrooms.mareunion.databinding.FragmentRoomDialogBinding;
+import com.openclassrooms.mareunion.databinding.ListRoomItemBinding;
 import com.openclassrooms.mareunion.di.DI;
+import com.openclassrooms.mareunion.event.RoomRecyclerViewItemClickEvent;
+import com.openclassrooms.mareunion.model.Meeting;
 import com.openclassrooms.mareunion.model.Room;
 import com.openclassrooms.mareunion.service.MeetingApiService;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
 
@@ -24,6 +30,10 @@ public class RoomDialogFragment extends DialogFragment {
     FragmentRoomDialogBinding mFragmentRoomDialogBinding;
 
     private MeetingApiService mApiService;
+
+    public interface RoomRecyclerViewItemClickListener {
+        void itemClicked(Room room);
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,7 +67,9 @@ public class RoomDialogFragment extends DialogFragment {
 
         // Init List
         List<Room> mRoomList = mApiService.getRooms();
-        mFragmentRoomDialogBinding.recyclerView.setAdapter(new RoomRecyclerViewAdapter(mRoomList, RoomDialogFragment.this));
+        mFragmentRoomDialogBinding.recyclerView.setAdapter(new RoomRecyclerViewAdapter(mRoomList));
+
+        //
     }
 
     @Override
@@ -66,4 +78,25 @@ public class RoomDialogFragment extends DialogFragment {
         mFragmentRoomDialogBinding = null;
     }
 
+    /**
+     * Eventbus codes
+     */
+
+    @Override
+    public void onStart() {
+        EventBus.getDefault().register(this);
+        super.onStart();
+    }
+
+    @Override
+    public void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
+    }
+
+    @Subscribe
+    public void RoomRecyclerViewItemClickEvent(RoomRecyclerViewItemClickEvent event) {
+        mApiService.filterMeetingsByRoom(event.mRoom);
+        dismiss();
+    }
 }

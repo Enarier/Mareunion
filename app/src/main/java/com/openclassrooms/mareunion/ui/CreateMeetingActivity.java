@@ -9,7 +9,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
+import com.google.android.material.textfield.TextInputEditText;
 import com.openclassrooms.mareunion.databinding.ActivityCreateMeetingBinding;
 
 import com.openclassrooms.mareunion.service.MeetingApiService;
@@ -27,6 +29,8 @@ public class CreateMeetingActivity extends AppCompatActivity implements DatePick
 
     private MeetingApiService mApiService;
 
+    private TextInputEditText actualTextInputEditText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,24 +39,27 @@ public class CreateMeetingActivity extends AppCompatActivity implements DatePick
         View view = mActivityCreateMeetingBinding.getRoot();
         setContentView(view);
 
-        mActivityCreateMeetingBinding.textInputLayoutDate.setOnClickListener(new View.OnClickListener() {
+        actualTextInputEditText = mActivityCreateMeetingBinding.textInputEditTextStartingTime;
+
+        mActivityCreateMeetingBinding.textInputEditTextDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDatePickerDialog();
             }
         });
 
-
-        mActivityCreateMeetingBinding.textInputLayoutStartingTime.setOnClickListener(new View.OnClickListener() {
+        mActivityCreateMeetingBinding.textInputEditTextStartingTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                actualTextInputEditText = mActivityCreateMeetingBinding.textInputEditTextStartingTime;
                 showTimePickerDialog();
             }
         });
 
-        mActivityCreateMeetingBinding.textInputLayoutFinishingTime.setOnClickListener(new View.OnClickListener() {
+        mActivityCreateMeetingBinding.textInputEditTextFinishingTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                actualTextInputEditText = mActivityCreateMeetingBinding.textInputEditTextFinishingTime;
                 showTimePickerDialog();
             }
         });
@@ -91,9 +98,20 @@ public class CreateMeetingActivity extends AppCompatActivity implements DatePick
         c.set(Calendar.HOUR_OF_DAY, hourOfDay);
         c.set(Calendar.MINUTE, minute);
 
-        DateFormat simpleDateFormat = new SimpleDateFormat("hh:mm");
-        String pickedDateString = simpleDateFormat.format(c.getTime());
-        mActivityCreateMeetingBinding.textInputEditTextStartingTime.setText(pickedDateString);
+        DateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
+        String pickedTimeString = simpleDateFormat.format(c.getTime());
+
+        if (actualTextInputEditText == mActivityCreateMeetingBinding.textInputEditTextStartingTime) {
+            mActivityCreateMeetingBinding.textInputEditTextStartingTime.setText(pickedTimeString);
+        } else {
+            mActivityCreateMeetingBinding.textInputEditTextFinishingTime.setText(pickedTimeString);
+
+            if ( mActivityCreateMeetingBinding.textInputEditTextFinishingTime.getText().toString().
+                    compareTo(mActivityCreateMeetingBinding.textInputEditTextStartingTime.getText().toString()) <= 0 ) {
+                Toast.makeText(this, "Finishing Time can't be set earlier than Starting Time", Toast.LENGTH_LONG).show();
+                mActivityCreateMeetingBinding.textInputEditTextFinishingTime.setText("");
+            }
+        }
     }
 
     private void createMeeting() {

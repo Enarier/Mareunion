@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -21,6 +20,7 @@ import com.openclassrooms.mareunion.di.DI;
 import com.openclassrooms.mareunion.event.DeleteMeetingEvent;
 import com.openclassrooms.mareunion.event.RoomRecyclerViewItemClickEvent;
 import com.openclassrooms.mareunion.model.Meeting;
+import com.openclassrooms.mareunion.model.Room;
 import com.openclassrooms.mareunion.service.MeetingApiService;
 
 import org.greenrobot.eventbus.EventBus;
@@ -31,13 +31,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
-
-    private Menu mMenu;
-
-    private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
+public class MainActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, RoomDialogFragment.RoomRecyclerViewItemClickListener {
 
     private MeetingApiService mApiService;
     private List<Meeting> mMeetingsList;
@@ -64,21 +58,17 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         mActivityMainBinding.createMeetingFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createMeeting();
+                navigateToCreateMeeting();
             }
         });
     }
 
     private void setUpRecyclerView() {
-        mRecyclerView = mActivityMainBinding.meetingRecyclerView;
-        mLayoutManager = new LinearLayoutManager(this);
-        mAdapter = new MeetingRecyclerViewAdapter(mMeetingsList);
-
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setAdapter(mAdapter);
+        mActivityMainBinding.meetingRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mActivityMainBinding.meetingRecyclerView.setAdapter(new MeetingRecyclerViewAdapter(mMeetingsList));
     }
 
-    private void createMeeting() {
+    private void navigateToCreateMeeting() {
         Intent intent = new Intent(this, CreateMeetingActivity.class);
         startActivity(intent);
     }
@@ -102,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 return true;
 
             case R.id.menuItem_reset:
-                mRecyclerView.setAdapter(mAdapter);
+                mActivityMainBinding.meetingRecyclerView.setAdapter(new MeetingRecyclerViewAdapter(mMeetingsList));
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -127,15 +117,21 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         String pickedDateString = simpleDateFormat.format(c.getTime());
 
         List<Meeting> mMeetingsListFiltered =  mApiService.filterMeetingsByDate(pickedDateString);
-        mRecyclerView.setAdapter(new MeetingRecyclerViewAdapter(mMeetingsListFiltered));
+        mActivityMainBinding.meetingRecyclerView.setAdapter(new MeetingRecyclerViewAdapter(mMeetingsListFiltered));
     }
 
     /**
-     * RoomDialog codes
+     * RoomDialogFragment codes
      */
     private void showRoomDialog() {
         DialogFragment mRoomDialogFragment = new RoomDialogFragment();
         mRoomDialogFragment.show(getSupportFragmentManager(), "roomDialog");
+    }
+
+    @Override
+    public void itemClicked(Room room) {
+        List<Meeting> mMeetingsListFiltered = mApiService.filterMeetingsByRoom(room);
+        mActivityMainBinding.meetingRecyclerView.setAdapter(new MeetingRecyclerViewAdapter(mMeetingsListFiltered));
     }
 
     /**
@@ -159,11 +155,5 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         setUpRecyclerView();
     }
 
-    @Subscribe
-    public void recyclerViewItemClicked(RoomRecyclerViewItemClickEvent event) {
-        mApiService.filterMeetingsByRoom(event.mRoom);
-        List<Meeting> mMeetingsListFiltered =  mApiService.filterMeetingsByRoom(event.mRoom);
-        mRecyclerView.setAdapter(new MeetingRecyclerViewAdapter(mMeetingsListFiltered));
 
-    }
 }
