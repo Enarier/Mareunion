@@ -9,6 +9,10 @@ public interface MeetingApiService {
 
     List<Meeting> getMeetings();
 
+    List<Room> getRooms();
+
+    List<String> getParticipantsEmail();
+
     void createMeeting(Meeting meeting);
 
     void deleteMeeting(Meeting meeting);
@@ -17,5 +21,5 @@ public interface MeetingApiService {
 
     List<Meeting> filterMeetingsByRoom(Room room);
 
-    List<Room> getRooms();
+
 }

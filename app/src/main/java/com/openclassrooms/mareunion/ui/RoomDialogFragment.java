@@ -13,10 +13,9 @@ import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.openclassrooms.mareunion.databinding.FragmentRoomDialogBinding;
-import com.openclassrooms.mareunion.databinding.ListRoomItemBinding;
 import com.openclassrooms.mareunion.di.DI;
 import com.openclassrooms.mareunion.event.RoomRecyclerViewItemClickEvent;
-import com.openclassrooms.mareunion.model.Meeting;
+import com.openclassrooms.mareunion.interfaces.RoomRecyclerViewItemClickListener;
 import com.openclassrooms.mareunion.model.Room;
 import com.openclassrooms.mareunion.service.MeetingApiService;
 
@@ -31,9 +30,7 @@ public class RoomDialogFragment extends DialogFragment {
 
     private MeetingApiService mApiService;
 
-    public interface RoomRecyclerViewItemClickListener {
-        void itemClicked(Room room);
-    }
+    private RoomRecyclerViewItemClickListener mRoomRecyclerViewItemClickListener;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -65,11 +62,10 @@ public class RoomDialogFragment extends DialogFragment {
         params.height = ViewGroup.LayoutParams.MATCH_PARENT;
         getDialog().getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);
 
-        // Init List
+        // Init RecyclerView List
         List<Room> mRoomList = mApiService.getRooms();
         mFragmentRoomDialogBinding.recyclerView.setAdapter(new RoomRecyclerViewAdapter(mRoomList));
 
-        //
     }
 
     @Override
@@ -79,7 +75,7 @@ public class RoomDialogFragment extends DialogFragment {
     }
 
     /**
-     * Eventbus codes
+     * Eventbus
      */
 
     @Override
@@ -96,7 +92,11 @@ public class RoomDialogFragment extends DialogFragment {
 
     @Subscribe
     public void RoomRecyclerViewItemClickEvent(RoomRecyclerViewItemClickEvent event) {
-        mApiService.filterMeetingsByRoom(event.mRoom);
+        mRoomRecyclerViewItemClickListener.selectedRoom(event.mRoom);
         dismiss();
+    }
+
+    public void filterRoom(RoomRecyclerViewItemClickListener roomRecyclerViewItemClickListener) {
+        mRoomRecyclerViewItemClickListener = roomRecyclerViewItemClickListener;
     }
 }

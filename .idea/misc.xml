@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/user/Desktop/Mareunion/app/src/main/res/drawable/circle.xml" value="0.2703125" />
+        <entry key="..\:/Users/user/Desktop/Mareunion/app/src/main/res/drawable/ic_access_time_24.xml" value="0.2703125" />
         <entry key="..\:/Users/user/Desktop/Mareunion/app/src/main/res/drawable/ic_item_delete_button_24.xml" value="0.2703125" />
         <entry key="..\:/Users/user/Desktop/Mareunion/app/src/main/res/drawable/ic_liverpool_background.xml" value="0.2703125" />
         <entry key="..\:/Users/user/Desktop/Mareunion/app/src/main/res/layout/activity_create_meeting.xml" value="0.25416666666666665" />
@@ -15,6 +16,7 @@
         <entry key="..\:/Users/user/Desktop/Mareunion/app/src/main/res/layout/list_item.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/user/Desktop/Mareunion/app/src/main/res/layout/list_meeting_item.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/user/Desktop/Mareunion/app/src/main/res/layout/list_room_item.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/user/Desktop/Mareunion/app/src/main/res/layout/room_spinner_item.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/user/Desktop/Mareunion/app/src/main/res/layout/toast.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/user/Desktop/Mareunion/app/src/main/res/menu/sort_menu.xml" value="0.25416666666666665" />
       </map>

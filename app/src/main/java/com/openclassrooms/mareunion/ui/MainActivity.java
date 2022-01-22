@@ -18,7 +18,8 @@ import com.openclassrooms.mareunion.R;
 import com.openclassrooms.mareunion.databinding.ActivityMainBinding;
 import com.openclassrooms.mareunion.di.DI;
 import com.openclassrooms.mareunion.event.DeleteMeetingEvent;
-import com.openclassrooms.mareunion.event.RoomRecyclerViewItemClickEvent;
+
+import com.openclassrooms.mareunion.interfaces.RoomRecyclerViewItemClickListener;
 import com.openclassrooms.mareunion.model.Meeting;
 import com.openclassrooms.mareunion.model.Room;
 import com.openclassrooms.mareunion.service.MeetingApiService;
@@ -31,7 +32,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, RoomDialogFragment.RoomRecyclerViewItemClickListener {
+public class MainActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, RoomRecyclerViewItemClickListener {
 
     private MeetingApiService mApiService;
     private List<Meeting> mMeetingsList;
@@ -47,8 +48,12 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         setContentView(view);
 
         init();
-        setUpRecyclerView();
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setUpRecyclerView();
     }
 
     private void init() {
@@ -99,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     }
 
     /**
-     * DatePickerDialog codes
+     * DatePickerDialog & DateSet
      */
     private void showDatePickerDialog() {
         DialogFragment mDatePickerFragment = new DatePickerFragment();
@@ -121,22 +126,30 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     }
 
     /**
-     * RoomDialogFragment codes
+     * RoomDialogFragment
      */
+
     private void showRoomDialog() {
-        DialogFragment mRoomDialogFragment = new RoomDialogFragment();
+        RoomDialogFragment mRoomDialogFragment = new RoomDialogFragment();
+        mRoomDialogFragment.filterRoom(this);
         mRoomDialogFragment.show(getSupportFragmentManager(), "roomDialog");
     }
 
+    /**
+     * Overridden method from interface RoomRecyclerViewItemClickListener
+     * @param room
+     */
+
     @Override
-    public void itemClicked(Room room) {
+    public void selectedRoom(Room room) {
         List<Meeting> mMeetingsListFiltered = mApiService.filterMeetingsByRoom(room);
         mActivityMainBinding.meetingRecyclerView.setAdapter(new MeetingRecyclerViewAdapter(mMeetingsListFiltered));
     }
 
     /**
-     * Eventbus codes
+     * Eventbus
      */
+
     @Override
     protected void onStart() {
         EventBus.getDefault().register(this);

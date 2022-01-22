@@ -5,31 +5,44 @@ import androidx.fragment.app.DialogFragment;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
+
 import com.google.android.material.textfield.TextInputEditText;
+import com.openclassrooms.mareunion.R;
 import com.openclassrooms.mareunion.databinding.ActivityCreateMeetingBinding;
 
+import com.openclassrooms.mareunion.di.DI;
+import com.openclassrooms.mareunion.model.Meeting;
+import com.openclassrooms.mareunion.model.Room;
 import com.openclassrooms.mareunion.service.MeetingApiService;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
+
+import java.util.List;
 
 public class CreateMeetingActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener{
 
     private ActivityCreateMeetingBinding mActivityCreateMeetingBinding;
+    private TextInputEditText actualTextInputEditText;
 
-    private Calendar c = Calendar.getInstance();
+    private final Calendar c = Calendar.getInstance();
 
     private MeetingApiService mApiService;
 
-    private TextInputEditText actualTextInputEditText;
+    private List<String> mChosenParticipants;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,35 +52,54 @@ public class CreateMeetingActivity extends AppCompatActivity implements DatePick
         View view = mActivityCreateMeetingBinding.getRoot();
         setContentView(view);
 
-        actualTextInputEditText = mActivityCreateMeetingBinding.textInputEditTextStartingTime;
+        mApiService = DI.getMeetingApiService();
+        mChosenParticipants = new ArrayList<>();
 
+        setUpSpinner();
+
+        actualTextInputEditText = mActivityCreateMeetingBinding.textInputEditTextStartingTime;
+        setUpEditTextDate();
+        setUpTwoEditTextTime();
+
+        setUpChipGroup();
+
+        setUpButtonCreateMeeting();
+
+    }
+
+    /**
+     * Spinner
+     */
+    private void setUpSpinner() {
+        List<Room> roomList = mApiService.getRooms();
+
+        mActivityCreateMeetingBinding.spinnerRoom.setAdapter(new RoomSpinnerAdapter(this, (ArrayList<Room>) roomList));
+        mActivityCreateMeetingBinding.spinnerRoom.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Room clickedRoom = (Room) parent.getItemAtPosition(position);
+                String clickedRoomName = clickedRoom.getName();
+                Toast.makeText(CreateMeetingActivity.this, clickedRoomName + " selected", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    /**
+     * Edit Text Date
+     */
+    private void setUpEditTextDate() {
+        // How to make this Hint color same as others ?
+        // I ve tried to set the hintColor in theme.xml but still they don't have same color
+        mActivityCreateMeetingBinding.textInputEditTextDate.setHint(R.string.date);
         mActivityCreateMeetingBinding.textInputEditTextDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDatePickerDialog();
-            }
-        });
-
-        mActivityCreateMeetingBinding.textInputEditTextStartingTime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                actualTextInputEditText = mActivityCreateMeetingBinding.textInputEditTextStartingTime;
-                showTimePickerDialog();
-            }
-        });
-
-        mActivityCreateMeetingBinding.textInputEditTextFinishingTime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                actualTextInputEditText = mActivityCreateMeetingBinding.textInputEditTextFinishingTime;
-                showTimePickerDialog();
-            }
-        });
-
-        mActivityCreateMeetingBinding.buttonCreateMeeting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                createMeeting();
             }
         });
     }
@@ -88,6 +120,27 @@ public class CreateMeetingActivity extends AppCompatActivity implements DatePick
         mActivityCreateMeetingBinding.textInputEditTextDate.setText(pickedDateString);
     }
 
+    /**
+     * 2 Edit Text Time
+     */
+    private void setUpTwoEditTextTime() {
+        mActivityCreateMeetingBinding.textInputEditTextStartingTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                actualTextInputEditText = mActivityCreateMeetingBinding.textInputEditTextStartingTime;
+                showTimePickerDialog();
+            }
+        });
+
+        mActivityCreateMeetingBinding.textInputEditTextFinishingTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                actualTextInputEditText = mActivityCreateMeetingBinding.textInputEditTextFinishingTime;
+                showTimePickerDialog();
+            }
+        });
+    }
+
     private void showTimePickerDialog() {
         DialogFragment mTimePickerFragment = new TimePickerFragment();
         mTimePickerFragment.show(getSupportFragmentManager(), "timePicker");
@@ -106,23 +159,89 @@ public class CreateMeetingActivity extends AppCompatActivity implements DatePick
         } else {
             mActivityCreateMeetingBinding.textInputEditTextFinishingTime.setText(pickedTimeString);
 
-            if ( mActivityCreateMeetingBinding.textInputEditTextFinishingTime.getText().toString().
-                    compareTo(mActivityCreateMeetingBinding.textInputEditTextStartingTime.getText().toString()) <= 0 ) {
-                Toast.makeText(this, "Finishing Time can't be set earlier than Starting Time", Toast.LENGTH_LONG).show();
+            String chosenStartingTime = mActivityCreateMeetingBinding.textInputEditTextStartingTime.getText().toString();
+            String chosenFinishingTime = mActivityCreateMeetingBinding.textInputEditTextFinishingTime.getText().toString();
+
+            if ( chosenFinishingTime.compareTo(chosenStartingTime) <= 0 ) {
+                Toast.makeText(this, "Finishing Time can't be set earlier than Starting Time", Toast.LENGTH_SHORT).show();
                 mActivityCreateMeetingBinding.textInputEditTextFinishingTime.setText("");
             }
         }
     }
 
-    private void createMeeting() {
-//        Meeting mMeeting = new Meeting(
-//
-//        );
-//        mApiService.createMeeting(mMeeting);
-//        finish();
+    /**
+     * Chip
+     */
+    private void setUpChipGroup() {
+        List<String> participantsEmailList = mApiService.getParticipantsEmail();
+        ChipGroup mChipGroup = mActivityCreateMeetingBinding.chipGroupParticipantsEmail;
 
+        for (String email : participantsEmailList) {
+            Chip mChip = new Chip(this);
+            mChip.setText(email);
+            mChip.setCheckedIconVisible(true);
+            mChip.setCheckable(true);
+
+            mChip.setOnCloseIconClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mChipGroup.removeView(mChip);
+                }
+            });
+
+            mChip.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    String chosenEmail = mChip.getText().toString();
+
+                    if(buttonView.isChecked()) {
+                        mChosenParticipants.add(chosenEmail);
+                    } else {
+                        mChosenParticipants.remove(chosenEmail);
+                    }
+                }
+            });
+
+            mChipGroup.addView(mChip);
+        }
     }
 
+    /**
+     * Button Create Meeting
+     */
 
+    private void setUpButtonCreateMeeting()  {
+        mActivityCreateMeetingBinding.buttonCreateMeeting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createMeeting();
+            }
+        });
+    }
+
+    private void createMeeting() {
+        String subject = mActivityCreateMeetingBinding.textInputEditTextSubject.getText().toString();
+        String chosenDate = mActivityCreateMeetingBinding.textInputEditTextDate.getText().toString();
+        String chosenStartingTime = mActivityCreateMeetingBinding.textInputEditTextStartingTime.getText().toString();
+        String chosenFinishingTime = mActivityCreateMeetingBinding.textInputEditTextFinishingTime.getText().toString();
+        Room mRoom = (Room) mActivityCreateMeetingBinding.spinnerRoom.getSelectedItem();
+
+        // 1 method apart boolean to do this
+        if(inputCheck()) {
+            mApiService.createMeeting(new Meeting(mRoom, subject, chosenDate, chosenStartingTime, chosenFinishingTime, mChosenParticipants));
+            finish();
+        } else {
+            Toast.makeText(this, "Should fill in all the required filed", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private boolean inputCheck() {
+        String subject = mActivityCreateMeetingBinding.textInputEditTextSubject.getText().toString();
+        String chosenDate = mActivityCreateMeetingBinding.textInputEditTextDate.getText().toString();
+        String chosenStartingTime = mActivityCreateMeetingBinding.textInputEditTextStartingTime.getText().toString();
+        String chosenFinishingTime = mActivityCreateMeetingBinding.textInputEditTextFinishingTime.getText().toString();
+
+        return !subject.isEmpty() && !chosenDate.isEmpty() && !chosenStartingTime.isEmpty() && !chosenFinishingTime.isEmpty();
+    }
 
 }

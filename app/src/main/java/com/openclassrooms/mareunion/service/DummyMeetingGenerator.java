@@ -49,4 +49,8 @@ public abstract class DummyMeetingGenerator {
         return new ArrayList<>(DUMMY_ROOMS);
     }
 
+    public static List<String> generateParticipantsEmail() {
+        return new ArrayList<>(PARTICIPANTS_EMAIL);
+    }
+
 }

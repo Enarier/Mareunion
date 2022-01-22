@@ -10,12 +10,24 @@ public class DummyMeetingApiService implements MeetingApiService{
 
     private List<Meeting> mMeetings = DummyMeetingGenerator.generateMeetings();
     private List<Room> mRooms = DummyMeetingGenerator.generateRooms();
+    private List<String> mParticipantsEmails = DummyMeetingGenerator.generateParticipantsEmail();
+
     private List<Meeting> mMeetingsFilteredByDate = new ArrayList<>();
     private List<Meeting> mMeetingsFilteredByRoom = new ArrayList<>();
 
     @Override
     public List<Meeting> getMeetings() {
         return mMeetings;
+    }
+
+    @Override
+    public List<Room> getRooms() {
+        return mRooms;
+    }
+
+    @Override
+    public List<String> getParticipantsEmail() {
+        return mParticipantsEmails;
     }
 
     @Override
@@ -52,10 +64,5 @@ public class DummyMeetingApiService implements MeetingApiService{
             }
         }
         return mMeetingsFilteredByRoom;
-    }
-
-    @Override
-    public List<Room> getRooms() {
-        return mRooms;
     }
 }
