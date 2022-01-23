@@ -49,7 +49,10 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
 
         String emails = "";
         for(int i = 0; i < mMeeting.getParticipantEmail().size(); i++) {
-            emails = emails + mMeeting.getParticipantEmail().get(i) + ", ";
+            emails += mMeeting.getParticipantEmail().get(i);
+            if (i + 1 < mMeeting.getParticipantEmail().size()) {
+                emails += ", ";
+            }
         }
         holder.mListMeetingItemBinding.email.setText(emails);
 

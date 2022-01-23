@@ -50,6 +50,7 @@
         android:layout_marginTop="8dp"
         app:helperText="Required"
         app:helperTextTextColor="@color/red"
+        app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinner_room"
@@ -112,19 +113,77 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.chip.ChipGroup
-        android:id="@+id/chipGroup_participantsEmail"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout_email"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        app:errorEnabled="true"
+        app:helperText="Required"
+        app:helperTextTextColor="@color/red"
+        app:layout_constraintEnd_toStartOf="@+id/button_email_ok"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout_startingTime"
+        app:layout_constraintHorizontal_weight="7">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textInputEditText_email"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/button_email_ok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="32dp"
+        android:text="@string/ok"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textInputLayout_email"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@+id/textInputLayout_email" />
+
+    <HorizontalScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="8dp"
+        android:scrollbars="none"
         app:layout_constraintBottom_toTopOf="@+id/button_createMeeting"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout_startingTime" />
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout_email"
+        app:layout_constraintVertical_bias="0.0">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteX="64dp"
+            tools:layout_editor_absoluteY="426dp">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroup_participantsEmail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:singleLine="true" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </HorizontalScrollView>
 
     <Button
         android:id="@+id/button_createMeeting"

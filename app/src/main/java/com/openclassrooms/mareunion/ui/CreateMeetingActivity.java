@@ -7,10 +7,13 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -64,7 +67,6 @@ public class CreateMeetingActivity extends AppCompatActivity implements DatePick
         setUpChipGroup();
 
         setUpButtonCreateMeeting();
-
     }
 
     /**
@@ -93,9 +95,6 @@ public class CreateMeetingActivity extends AppCompatActivity implements DatePick
      * Edit Text Date
      */
     private void setUpEditTextDate() {
-        // How to make this Hint color same as others ?
-        // I ve tried to set the hintColor in theme.xml but still they don't have same color
-        mActivityCreateMeetingBinding.textInputEditTextDate.setHint(R.string.date);
         mActivityCreateMeetingBinding.textInputEditTextDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -173,37 +172,36 @@ public class CreateMeetingActivity extends AppCompatActivity implements DatePick
      * Chip
      */
     private void setUpChipGroup() {
-        List<String> participantsEmailList = mApiService.getParticipantsEmail();
         ChipGroup mChipGroup = mActivityCreateMeetingBinding.chipGroupParticipantsEmail;
+        EditText editTextEmail = mActivityCreateMeetingBinding.textInputEditTextEmail;
+        Button buttonOK = mActivityCreateMeetingBinding.buttonEmailOk;
 
-        for (String email : participantsEmailList) {
-            Chip mChip = new Chip(this);
-            mChip.setText(email);
-            mChip.setCheckedIconVisible(true);
-            mChip.setCheckable(true);
+        buttonOK.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String emailInput = editTextEmail.getText().toString();
 
-            mChip.setOnCloseIconClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mChipGroup.removeView(mChip);
+                if (!emailInput.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(emailInput).matches()) {
+
+                    Chip mChip = new Chip(CreateMeetingActivity.this);
+                    mChip.setText(emailInput);
+                    mChip.setCloseIconVisible(true);
+                    String participants = mChip.getText().toString();
+                    mChosenParticipants.add(participants);
+
+                    mChip.setOnCloseIconClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            mChipGroup.removeView(mChip);
+                            mChosenParticipants.remove(participants);
+                        }
+                    });
+                    mChipGroup.addView(mChip);
+                } else {
+                    Toast.makeText(CreateMeetingActivity.this, "Invalid Email address form", Toast.LENGTH_SHORT).show();
                 }
-            });
-
-            mChip.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    String chosenEmail = mChip.getText().toString();
-
-                    if(buttonView.isChecked()) {
-                        mChosenParticipants.add(chosenEmail);
-                    } else {
-                        mChosenParticipants.remove(chosenEmail);
-                    }
-                }
-            });
-
-            mChipGroup.addView(mChip);
-        }
+            }
+        });
     }
 
     /**

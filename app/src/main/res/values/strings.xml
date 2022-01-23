@@ -10,5 +10,7 @@
     <string name="reset">Reset</string>
     <string name="filtericon">filterIcon</string>
     <string name="select_a_room">select a room</string>
+    <string name="ok">OK</string>
+    <string name="email">Email</string>
 
 </resources>
