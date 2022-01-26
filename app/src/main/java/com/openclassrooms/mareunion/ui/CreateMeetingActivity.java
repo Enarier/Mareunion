@@ -36,7 +36,7 @@ import java.util.Calendar;
 
 import java.util.List;
 
-public class CreateMeetingActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener{
+public class CreateMeetingActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
     private ActivityCreateMeetingBinding mActivityCreateMeetingBinding;
     private TextInputEditText actualTextInputEditText;
@@ -46,6 +46,7 @@ public class CreateMeetingActivity extends AppCompatActivity implements DatePick
     private MeetingApiService mApiService;
 
     private List<String> mChosenParticipants;
+    private int mChipsCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,8 +162,8 @@ public class CreateMeetingActivity extends AppCompatActivity implements DatePick
             String chosenStartingTime = mActivityCreateMeetingBinding.textInputEditTextStartingTime.getText().toString();
             String chosenFinishingTime = mActivityCreateMeetingBinding.textInputEditTextFinishingTime.getText().toString();
 
-            if ( chosenFinishingTime.compareTo(chosenStartingTime) <= 0 ) {
-                Toast.makeText(this, "Finishing Time can't be set earlier than Starting Time", Toast.LENGTH_SHORT).show();
+            if (chosenFinishingTime.compareTo(chosenStartingTime) <= 0) {
+                Toast.makeText(this, R.string.time_logic_text, Toast.LENGTH_SHORT).show();
                 mActivityCreateMeetingBinding.textInputEditTextFinishingTime.setText("");
             }
         }
@@ -184,6 +185,7 @@ public class CreateMeetingActivity extends AppCompatActivity implements DatePick
                 if (!emailInput.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(emailInput).matches()) {
 
                     Chip mChip = new Chip(CreateMeetingActivity.this);
+                    mChipsCount++;
                     mChip.setText(emailInput);
                     mChip.setCloseIconVisible(true);
                     String participants = mChip.getText().toString();
@@ -208,7 +210,7 @@ public class CreateMeetingActivity extends AppCompatActivity implements DatePick
      * Button Create Meeting
      */
 
-    private void setUpButtonCreateMeeting()  {
+    private void setUpButtonCreateMeeting() {
         mActivityCreateMeetingBinding.buttonCreateMeeting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -225,7 +227,7 @@ public class CreateMeetingActivity extends AppCompatActivity implements DatePick
         Room mRoom = (Room) mActivityCreateMeetingBinding.spinnerRoom.getSelectedItem();
 
         // 1 method apart boolean to do this
-        if(inputCheck()) {
+        if (inputCheck() && mChipsCount != 0) {
             mApiService.createMeeting(new Meeting(mRoom, subject, chosenDate, chosenStartingTime, chosenFinishingTime, mChosenParticipants));
             finish();
         } else {

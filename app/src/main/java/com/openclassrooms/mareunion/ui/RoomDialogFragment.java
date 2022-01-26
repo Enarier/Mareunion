@@ -42,7 +42,7 @@ public class RoomDialogFragment extends DialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mFragmentRoomDialogBinding = FragmentRoomDialogBinding.inflate(inflater, container, false);
-        mFragmentRoomDialogBinding.recyclerView.setLayoutManager(new LinearLayoutManager(mFragmentRoomDialogBinding.getRoot().getContext()));
+        mFragmentRoomDialogBinding.recyclerViewRoomDialogFragment.setLayoutManager(new LinearLayoutManager(mFragmentRoomDialogBinding.getRoot().getContext()));
 
         return mFragmentRoomDialogBinding.getRoot();
     }
@@ -64,7 +64,7 @@ public class RoomDialogFragment extends DialogFragment {
 
         // Init RecyclerView List
         List<Room> mRoomList = mApiService.getRooms();
-        mFragmentRoomDialogBinding.recyclerView.setAdapter(new RoomRecyclerViewAdapter(mRoomList));
+        mFragmentRoomDialogBinding.recyclerViewRoomDialogFragment.setAdapter(new RoomRecyclerViewAdapter(mRoomList));
 
     }
 

@@ -12,5 +12,6 @@
     <string name="select_a_room">select a room</string>
     <string name="ok">OK</string>
     <string name="email">Email</string>
+    <string name="time_logic_text">Finishing Time can\'t be set earlier than Starting Time</string>
 
 </resources>
