@@ -64,7 +64,6 @@ public class MeetingServiceTest {
 
     @Test
     public void deleteMeetingWithSuccess() {
-        int meetingSizeBefore = mMeetingApiService.getMeetings().size();
         Meeting mMeeting = mMeetingApiService.getMeetings().get(0);
         Meeting mMeeting2 = mMeetingApiService.getMeetings().get(1);
 
@@ -74,17 +73,15 @@ public class MeetingServiceTest {
         mMeetingApiService.deleteMeeting(mMeeting);
         mMeetingApiService.deleteMeeting(mMeeting2);
 
-        int meetingSizeAfter = mMeetingApiService.getMeetings().size();
         assertFalse(mMeetingApiService.getMeetings().contains(mMeeting));
         assertFalse(mMeetingApiService.getMeetings().contains(mMeeting2));
-
-        assertNotEquals(meetingSizeBefore, meetingSizeAfter);
     }
 
     @Test
     public void filterMeetingsByDateWithSuccess() {
         Meeting mMeeting = mMeetingApiService.getMeetings().get(0);
 
+        // original list contains several meeting before
         List<Meeting> filteredMeetingList = mMeetingApiService.filterMeetingsByDate(mMeeting.getDate());
         assertTrue(filteredMeetingList.contains(mMeeting));
         assertTrue(filteredMeetingList.size() == 1);
@@ -94,6 +91,7 @@ public class MeetingServiceTest {
     public void filterMeetingsByRoomWithSuccess() {
         Meeting mMeeting = mMeetingApiService.getMeetings().get(0);
 
+        // same thing like date
         List<Meeting> filteredMeetingList = mMeetingApiService.filterMeetingsByRoom(mMeeting.getRoom());
         assertTrue(filteredMeetingList.contains(mMeeting));
         assertTrue(filteredMeetingList.size() == 1);

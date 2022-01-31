@@ -5,6 +5,8 @@ import android.view.WindowManager;
 
 import androidx.test.espresso.Root;
 
+import com.openclassrooms.mareunion.R;
+
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
 
@@ -12,7 +14,7 @@ public class ToastMatcher extends TypeSafeMatcher<Root> {
 
     @Override
     public void describeTo(Description description) {
-        description.appendText("is toast");
+        description.appendText("It is a Toast");
     }
 
     @Override

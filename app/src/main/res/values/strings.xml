@@ -8,10 +8,10 @@
     <string name="subject">Subject</string>
     <string name="room">Room</string>
     <string name="reset">Reset</string>
-    <string name="filtericon">filterIcon</string>
+    <string name="filter_icon">filterIcon</string>
     <string name="select_a_room">select a room</string>
     <string name="ok">OK</string>
-    <string name="email">Email</string>
+    <string name="attach_email">Attach the Emails</string>
     <string name="time_logic_text">Finishing Time can\'t be set earlier than Starting Time</string>
 
 </resources>

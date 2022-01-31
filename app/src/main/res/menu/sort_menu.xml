@@ -4,7 +4,7 @@
     <item
         android:id="@+id/menu_filterIcon"
         android:icon="@drawable/ic_filter_list_24"
-        android:title="@string/filtericon"
+        android:title="@string/filter_icon"
         app:showAsAction="ifRoom">
         <menu>
             <item

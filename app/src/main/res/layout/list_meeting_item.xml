@@ -32,7 +32,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/imageView_roomColor"
         app:layout_constraintTop_toTopOf="@+id/imageView_roomColor"
-        tools:text="Reunion A" />
+        tools:text="Subject A" />
 
     <TextView
         android:id="@+id/starting_time"
@@ -58,7 +58,7 @@
         app:layout_constraintEnd_toStartOf="@+id/delete_button"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/starting_time"
-        tools:text="- Peach" />
+        tools:text="- Salle A" />
 
     <TextView
         android:id="@+id/email"
@@ -84,6 +84,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/meeting_subject"
         app:srcCompat="@drawable/ic_item_delete_button_24" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

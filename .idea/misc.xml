@@ -7,18 +7,22 @@
         <entry key="..\:/Users/user/Desktop/Mareunion/app/src/main/res/drawable/ic_access_time_24.xml" value="0.2703125" />
         <entry key="..\:/Users/user/Desktop/Mareunion/app/src/main/res/drawable/ic_item_delete_button_24.xml" value="0.2703125" />
         <entry key="..\:/Users/user/Desktop/Mareunion/app/src/main/res/drawable/ic_liverpool_background.xml" value="0.2703125" />
+        <entry key="..\:/Users/user/Desktop/Mareunion/app/src/main/res/layout-land/activity_create_meeting.xml" value="0.3203125" />
+        <entry key="..\:/Users/user/Desktop/Mareunion/app/src/main/res/layout-land/activity_main.xml" value="0.3203125" />
         <entry key="..\:/Users/user/Desktop/Mareunion/app/src/main/res/layout/activity_create_meeting.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/user/Desktop/Mareunion/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/user/Desktop/Mareunion/app/src/main/res/layout/activity_main.xml" value="0.23992133726647" />
         <entry key="..\:/Users/user/Desktop/Mareunion/app/src/main/res/layout/fragment_room_dialog.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/user/Desktop/Mareunion/app/src/main/res/layout/item.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/user/Desktop/Mareunion/app/src/main/res/layout/list_Meeting_item.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/user/Desktop/Mareunion/app/src/main/res/layout/list_Room_item.xml" value="0.536" />
         <entry key="..\:/Users/user/Desktop/Mareunion/app/src/main/res/layout/list_item.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/user/Desktop/Mareunion/app/src/main/res/layout/list_meeting_item.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/user/Desktop/Mareunion/app/src/main/res/layout/list_meeting_item.xml" value="0.4" />
         <entry key="..\:/Users/user/Desktop/Mareunion/app/src/main/res/layout/list_room_item.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/user/Desktop/Mareunion/app/src/main/res/layout/room_spinner_item.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/user/Desktop/Mareunion/app/src/main/res/layout/toast.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/user/Desktop/Mareunion/app/src/main/res/menu/sort_menu.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/user/Desktop/Mareunion/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2703125" />
+        <entry key="..\:/Users/user/Desktop/Mareunion/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2703125" />
       </map>
     </option>
   </component>

@@ -60,13 +60,10 @@ public class CreateMeetingActivity extends AppCompatActivity implements DatePick
         mChosenParticipants = new ArrayList<>();
 
         setUpSpinner();
-
         actualTextInputEditText = mActivityCreateMeetingBinding.textInputEditTextStartingTime;
         setUpEditTextDate();
         setUpTwoEditTextTime();
-
         setUpChipGroup();
-
         setUpButtonCreateMeeting();
     }
 
@@ -226,7 +223,6 @@ public class CreateMeetingActivity extends AppCompatActivity implements DatePick
         String chosenFinishingTime = mActivityCreateMeetingBinding.textInputEditTextFinishingTime.getText().toString();
         Room mRoom = (Room) mActivityCreateMeetingBinding.spinnerRoom.getSelectedItem();
 
-        // 1 method apart boolean to do this
         if (inputCheck() && mChipsCount != 0) {
             mApiService.createMeeting(new Meeting(mRoom, subject, chosenDate, chosenStartingTime, chosenFinishingTime, mChosenParticipants));
             finish();
