@@ -27,10 +27,12 @@ import java.util.List;
 public class MeetingServiceTest {
 
     private MeetingApiService mMeetingApiService;
+    private MeetingApiService mMeetingApiServiceNew;
 
     @Before
     public void setUp() {
         mMeetingApiService = DI.getMeetingApiService();
+        mMeetingApiServiceNew = DI.getNewInstanceApiService();
     }
 
     @Test
@@ -64,24 +66,24 @@ public class MeetingServiceTest {
 
     @Test
     public void deleteMeetingWithSuccess() {
-        Meeting mMeeting = mMeetingApiService.getMeetings().get(0);
-        Meeting mMeeting2 = mMeetingApiService.getMeetings().get(1);
+        Meeting mMeeting = mMeetingApiServiceNew.getMeetings().get(0);
+        Meeting mMeeting2 = mMeetingApiServiceNew.getMeetings().get(1);
 
-        assertTrue(mMeetingApiService.getMeetings().contains(mMeeting));
-        assertTrue(mMeetingApiService.getMeetings().contains(mMeeting2));
+        assertTrue(mMeetingApiServiceNew.getMeetings().contains(mMeeting));
+        assertTrue(mMeetingApiServiceNew.getMeetings().contains(mMeeting2));
 
-        mMeetingApiService.deleteMeeting(mMeeting);
-        mMeetingApiService.deleteMeeting(mMeeting2);
+        mMeetingApiServiceNew.deleteMeeting(mMeeting);
+        mMeetingApiServiceNew.deleteMeeting(mMeeting2);
 
-        assertFalse(mMeetingApiService.getMeetings().contains(mMeeting));
-        assertFalse(mMeetingApiService.getMeetings().contains(mMeeting2));
+        assertFalse(mMeetingApiServiceNew.getMeetings().contains(mMeeting));
+        assertFalse(mMeetingApiServiceNew.getMeetings().contains(mMeeting2));
     }
 
     @Test
     public void filterMeetingsByDateWithSuccess() {
         Meeting mMeeting = mMeetingApiService.getMeetings().get(0);
-
-        // original list contains several meeting before
+        List<Meeting> originalMeetingList = mMeetingApiService.getMeetings();
+        assertTrue(originalMeetingList.size() > 1);
         List<Meeting> filteredMeetingList = mMeetingApiService.filterMeetingsByDate(mMeeting.getDate());
         assertTrue(filteredMeetingList.contains(mMeeting));
         assertTrue(filteredMeetingList.size() == 1);
@@ -90,8 +92,8 @@ public class MeetingServiceTest {
     @Test
     public void filterMeetingsByRoomWithSuccess() {
         Meeting mMeeting = mMeetingApiService.getMeetings().get(0);
-
-        // same thing like date
+        List<Meeting> originalMeetingList = mMeetingApiService.getMeetings();
+        assertTrue(originalMeetingList.size() > 1);
         List<Meeting> filteredMeetingList = mMeetingApiService.filterMeetingsByRoom(mMeeting.getRoom());
         assertTrue(filteredMeetingList.contains(mMeeting));
         assertTrue(filteredMeetingList.size() == 1);

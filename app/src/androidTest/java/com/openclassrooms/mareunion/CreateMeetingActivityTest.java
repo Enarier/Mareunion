@@ -66,48 +66,18 @@ public class CreateMeetingActivityTest {
         onView(withId(R.id.button_createMeeting)).check(matches(isCompletelyDisplayed()));
     }
 
-    //Put this in MainActivityTest
+//    @Test
+//    public void createMeeting_TimeLogic() {
+//        onView(withId(R.id.textInputEditText_startingTime)).perform(click());
+//        onView(withText("OK")).perform(click());
+//        onView(withId(R.id.textInputEditText_finishingTime)).perform(click());
+//        onView(withText("OK")).perform(click());
 
-    @Test
-    public void createMeetingWithSuccess() {
-        onView(withId(R.id.textInputEditText_subject)).perform(typeText("Test A"));
-        closeSoftKeyboard();
-        onView(withId(R.id.spinner_room)).perform(click());
-        onData(anything()).atPosition(5).perform(click());
-        onView(withId(R.id.textInputEditText_date)).perform(click());
-        onView(withClassName(equalTo(DatePicker.class.getName()))).perform(PickerActions.setDate(2022,2,23));
-        onView(withText("OK")).perform(click());
-        onView(withId(R.id.textInputEditText_startingTime)).perform(click());
-        onView(withClassName(equalTo(TimePicker.class.getName()))).perform(PickerActions.setTime(21,30));
-        onView(withText("OK")).perform(click());
-        onView(withId(R.id.textInputEditText_finishingTime)).perform(click());
-        onView(withClassName(equalTo(TimePicker.class.getName()))).perform(PickerActions.setTime(22,30));
-        onView(withText("OK")).perform(click());
-        onView(withId(R.id.textInputEditText_email)).perform(typeText("test1@mail.com"));
-        closeSoftKeyboard();
-        onView(withId(R.id.button_email_ok)).perform(click());
-        onView(withId(R.id.textInputEditText_email)).perform(clearText());
-        onView(withId(R.id.textInputEditText_email)).perform(typeText("test2@mail.com"));
-        closeSoftKeyboard();
-        onView(withId(R.id.button_email_ok)).perform(click());
-        onView(withId(R.id.textInputEditText_email)).perform(clearText());
-        onView(withId(R.id.button_createMeeting)).perform(click());
-
-//         How to check the RV which is located in another activity ?
-//        onView(withId(R.id.meeting_recyclerView)).check(withItemCount(MEETING_ITEMS_COUNT + 1));
-    }
-
-    @Test
-    public void createMeeting_TimeLogic() {
-        onView(withId(R.id.textInputEditText_startingTime)).perform(click());
-        onView(withText("OK")).perform(click());
-        onView(withId(R.id.textInputEditText_finishingTime)).perform(click());
-        onView(withText("OK")).perform(click());
-//        How to test toast message ?
-        onView(withText("Finishing Time can't be set earlier than Starting Time")).inRoot(new ToastMatcher())
-                .check(matches(isDisplayed()));
-
-    }
+//      How to test toast message ?
+//     onView(withText("Finishing Time can't be set earlier than Starting Time")).inRoot(new ToastMatcher())
+//                .check(matches(isDisplayed()));
+//
+//    }
 
 
 

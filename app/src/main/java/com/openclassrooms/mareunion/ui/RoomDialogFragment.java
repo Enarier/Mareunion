@@ -99,4 +99,5 @@ public class RoomDialogFragment extends DialogFragment {
     public void filterRoom(RoomRecyclerViewItemClickListener roomRecyclerViewItemClickListener) {
         mRoomRecyclerViewItemClickListener = roomRecyclerViewItemClickListener;
     }
+
 }

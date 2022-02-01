@@ -223,9 +223,11 @@ public class CreateMeetingActivity extends AppCompatActivity implements DatePick
         String chosenFinishingTime = mActivityCreateMeetingBinding.textInputEditTextFinishingTime.getText().toString();
         Room mRoom = (Room) mActivityCreateMeetingBinding.spinnerRoom.getSelectedItem();
 
-        if (inputCheck() && mChipsCount != 0) {
+        if (inputCheck() && mChipsCount != 0 && subject.length() < 20) {
             mApiService.createMeeting(new Meeting(mRoom, subject, chosenDate, chosenStartingTime, chosenFinishingTime, mChosenParticipants));
             finish();
+        } else if (subject.length() > 20) {
+            Toast.makeText(this, "Meeting subject can't be over than 20 characters", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "Should fill in all the required filed", Toast.LENGTH_SHORT).show();
         }
