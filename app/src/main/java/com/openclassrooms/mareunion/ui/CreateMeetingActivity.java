@@ -1,29 +1,25 @@
 package com.openclassrooms.mareunion.ui;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
-
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
+
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
-
 import com.google.android.material.textfield.TextInputEditText;
 import com.openclassrooms.mareunion.R;
 import com.openclassrooms.mareunion.databinding.ActivityCreateMeetingBinding;
-
 import com.openclassrooms.mareunion.di.DI;
 import com.openclassrooms.mareunion.model.Meeting;
 import com.openclassrooms.mareunion.model.Room;
@@ -33,7 +29,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-
 import java.util.List;
 
 public class CreateMeetingActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
@@ -193,10 +188,11 @@ public class CreateMeetingActivity extends AppCompatActivity implements DatePick
                         public void onClick(View v) {
                             mChipGroup.removeView(mChip);
                             mChosenParticipants.remove(participants);
+                            mChipsCount--;
                         }
                     });
                     mChipGroup.addView(mChip);
-                } else {
+                } else if (!Patterns.EMAIL_ADDRESS.matcher(emailInput).matches()){
                     Toast.makeText(CreateMeetingActivity.this, "Invalid Email address form", Toast.LENGTH_SHORT).show();
                 }
             }

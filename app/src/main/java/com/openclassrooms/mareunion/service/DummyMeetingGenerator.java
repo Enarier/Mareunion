@@ -26,11 +26,11 @@ public abstract class DummyMeetingGenerator {
     );
 
     public static List<String> PARTICIPANTS_EMAIL = Arrays.asList(
-            new String("alex@lamzone.com"),
-            new String("ager@lamzone.com"),
-            new String("skretel@lamzone.com"),
-            new String("hypia@lamzone.com"),
-            new String("gerrard@lamzone.com")
+            "alex@lamzone.com",
+            "ager@lamzone.com",
+            "skretel@lamzone.com",
+            "hypia@lamzone.com",
+            "gerrard@lamzone.com"
     );
 
     public static List<Meeting> DUMMY_MEETINGS = Arrays.asList(

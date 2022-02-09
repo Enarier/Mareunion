@@ -27,12 +27,11 @@ import java.util.List;
 public class MeetingServiceTest {
 
     private MeetingApiService mMeetingApiService;
-    private MeetingApiService mMeetingApiServiceNew;
+
 
     @Before
     public void setUp() {
-        mMeetingApiService = DI.getMeetingApiService();
-        mMeetingApiServiceNew = DI.getNewInstanceApiService();
+        mMeetingApiService = DI.getNewInstanceApiService();
     }
 
     @Test
@@ -66,17 +65,17 @@ public class MeetingServiceTest {
 
     @Test
     public void deleteMeetingWithSuccess() {
-        Meeting mMeeting = mMeetingApiServiceNew.getMeetings().get(0);
-        Meeting mMeeting2 = mMeetingApiServiceNew.getMeetings().get(1);
+        Meeting mMeeting = mMeetingApiService.getMeetings().get(0);
+        Meeting mMeeting2 = mMeetingApiService.getMeetings().get(1);
 
-        assertTrue(mMeetingApiServiceNew.getMeetings().contains(mMeeting));
-        assertTrue(mMeetingApiServiceNew.getMeetings().contains(mMeeting2));
+        assertTrue(mMeetingApiService.getMeetings().contains(mMeeting));
+        assertTrue(mMeetingApiService.getMeetings().contains(mMeeting2));
 
-        mMeetingApiServiceNew.deleteMeeting(mMeeting);
-        mMeetingApiServiceNew.deleteMeeting(mMeeting2);
+        mMeetingApiService.deleteMeeting(mMeeting);
+        mMeetingApiService.deleteMeeting(mMeeting2);
 
-        assertFalse(mMeetingApiServiceNew.getMeetings().contains(mMeeting));
-        assertFalse(mMeetingApiServiceNew.getMeetings().contains(mMeeting2));
+        assertFalse(mMeetingApiService.getMeetings().contains(mMeeting));
+        assertFalse(mMeetingApiService.getMeetings().contains(mMeeting2));
     }
 
     @Test
