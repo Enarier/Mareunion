@@ -18,6 +18,8 @@ The application contains following fonctualities :
 4. Delete meeting
 
 ## Demo of end result
+![](Mareunion_MainActivityDemo.gif)
+
 
 
 ## Technologies
