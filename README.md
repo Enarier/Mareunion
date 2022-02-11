@@ -10,13 +10,14 @@ Ce dépôt contient une mini-application pour le P4 du parcours **Grande École 
 * [Launch](#Launch)
 
 ## General info
-<img src="Use case.drawio.png" width="591" height="452">
 This application's purpose is to help users manage their meetings
 The application contains following fonctualities : 
 1. Check meetings
 2. Filter meetings 
 3. Create meeting
 4. Delete meeting
+
+<img src="Use case.drawio.png" width="591" height="452">
 
 ## Demo of end result
 <p align="center">
