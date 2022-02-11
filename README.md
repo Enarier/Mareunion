@@ -17,7 +17,7 @@ The application contains following fonctualities :
 3. Create meeting
 4. Delete meeting
 
-<img src="Use case.drawio.png" width="591" height="452">
+![](Use case.drawio.png)
 
 ## Demo of end result
 <p align="center">
