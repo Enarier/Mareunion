@@ -18,9 +18,9 @@ The application contains following fonctualities :
 4. Delete meeting
 
 ## Demo of end result
-![](mareunion_mainActivity.gif)
-![](mareunion_CreateAcitivty1.gif)
-![](mareunion_CreateActivity2.gif)
+![](mareunion_mainActivity.gif | width=268)
+![](mareunion_CreateAcitivty1.gif | width=268)
+![](mareunion_CreateActivity2.gif | width=268)
 
 ## Technologies
 This application is created with:
