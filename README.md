@@ -17,8 +17,6 @@ The application contains following fonctualities :
 3. Create meeting
 4. Delete meeting
 
-![](Use case.drawio.png)
-
 ## Demo of end result
 <p align="center">
   <img src="mareunion_mainActivity.gif" width="268" height="541">
