@@ -1,8 +1,8 @@
 package com.openclassrooms.mareunion;
 
-import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 import com.openclassrooms.mareunion.di.DI;
@@ -16,7 +16,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
-
 
 import java.util.List;
 
@@ -85,7 +84,7 @@ public class MeetingServiceTest {
         assertTrue(originalMeetingList.size() > 1);
         List<Meeting> filteredMeetingList = mMeetingApiService.filterMeetingsByDate(mMeeting.getDate());
         assertTrue(filteredMeetingList.contains(mMeeting));
-        assertTrue(filteredMeetingList.size() == 1);
+        assertEquals(1, filteredMeetingList.size());
     }
 
     @Test
@@ -95,6 +94,6 @@ public class MeetingServiceTest {
         assertTrue(originalMeetingList.size() > 1);
         List<Meeting> filteredMeetingList = mMeetingApiService.filterMeetingsByRoom(mMeeting.getRoom());
         assertTrue(filteredMeetingList.contains(mMeeting));
-        assertTrue(filteredMeetingList.size() == 1);
+        assertEquals(1, filteredMeetingList.size());
     }
 }

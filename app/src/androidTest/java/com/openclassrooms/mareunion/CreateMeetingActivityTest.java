@@ -8,24 +8,14 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
-import com.openclassrooms.mareunion.di.DI;
-import com.openclassrooms.mareunion.service.MeetingApiService;
 import com.openclassrooms.mareunion.ui.CreateMeetingActivity;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.Calendar;
-
 @RunWith(AndroidJUnit4.class)
 public class CreateMeetingActivityTest {
-
-    private MeetingApiService mApiService = DI.getMeetingApiService();
-    private final Calendar mCalendar = Calendar.getInstance();
-    //Fixed amount of item of the meeting List
-    private static int MEETING_ITEMS_COUNT = 5;
-
     @Rule
     public ActivityScenarioRule<CreateMeetingActivity> mCreateMeetingActivityScenarioRule =
             new ActivityScenarioRule<>(CreateMeetingActivity.class);

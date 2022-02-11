@@ -26,8 +26,6 @@ import androidx.test.espresso.contrib.PickerActions;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
-import com.openclassrooms.mareunion.di.DI;
-import com.openclassrooms.mareunion.service.MeetingApiService;
 import com.openclassrooms.mareunion.ui.MainActivity;
 import com.openclassrooms.mareunion.utils.DeleteMeetingAction;
 
@@ -38,11 +36,10 @@ import org.junit.runner.RunWith;
 @RunWith(AndroidJUnit4.class)
 public class MainActivityTest {
 
-    private MeetingApiService mApiService = DI.getMeetingApiService();
     //Fixed amount of item of the meeting List
-    private static int MEETING_ITEMS_COUNT = 5;
+    private static final int MEETING_ITEMS_COUNT = 5;
     //Fixed amount of item of the room List
-    private static int ROOM_ITEMS_COUNT = 10;
+    private static final int ROOM_ITEMS_COUNT = 10;
 
     @Rule
     public ActivityScenarioRule<MainActivity> mMainActivityActivityScenarioRule =
@@ -66,7 +63,7 @@ public class MainActivityTest {
         onView(withId(R.id.meeting_recyclerView)).check(matches(isDisplayed()));
         onView(allOf(withId(R.id.menu_filterIcon))).check(matches(isDisplayed())).perform(click());
         onView(anyOf(withId(R.id.menuItem_date), withText(R.string.date))).perform(click());
-        onView(withClassName(equalTo(DatePicker.class.getName()))).perform(PickerActions.setDate(2022,1,05));
+        onView(withClassName(equalTo(DatePicker.class.getName()))).perform(PickerActions.setDate(2022,1, 5));
         onView(withText("OK")).perform(click());
         onView(withId(R.id.meeting_recyclerView)).check(matches(hasMinimumChildCount(1)));
         onView(allOf(withId(R.id.menu_filterIcon))).check(matches(isDisplayed())).perform(click());
