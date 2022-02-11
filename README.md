@@ -18,9 +18,11 @@ The application contains following fonctualities :
 4. Delete meeting
 
 ## Demo of end result
-![](mareunion_mainActivity.gif =268x541 )
-![](mareunion_CreateAcitivty1.gif =268x541)
-![](mareunion_CreateActivity2.gif =268x541)
+<p align="center">
+  <img src="mareunion_mainActivity.gif" width="268" height="541">
+  <img src="mareunion_CreateAcitivty1.gif" width="268" height="541">
+  <img src="mareunion_CreateActivity2.gif" width="268" height="541">
+</p>
 
 ## Technologies
 This application is created with:
