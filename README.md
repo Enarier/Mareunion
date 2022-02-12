@@ -19,9 +19,9 @@ The application contains following fonctualities :
 
 ## Demo of end result
 <p align="center">
-   ![](mareunion_mainActivity.gif)
-   ![](mareunion_CreateAcitivty1.gif)
-   ![](mareunion_CreateActivity2.gif)
+   ![](Images/mareunion_mainActivity.gif)
+   ![](Images/mareunion_CreateAcitivty1.gif)
+   ![](Images/mareunion_CreateActivity2.gif)
 </p>
 
 ## Technologies
