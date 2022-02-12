@@ -40,5 +40,5 @@ This application is created with:
 * MVC
 
 ## Launch
-Download the code file or clone this repository and open via Android Studio
+Download the code file or clone this repository and open via Android Studio.
 
