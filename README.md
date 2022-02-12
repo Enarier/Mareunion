@@ -19,9 +19,9 @@ The application contains following fonctualities :
 
 ## Demo of end result
 <p align="center">
-   <img src = "mareunion_mainActivity.gif" width = "258" height = "507"/>
-   <img src = "mareunion_CreateAcitivty1.gif" width = "258" height = "507"/>
-   <img src = "mareunion_CreateActivity2.gif" width = "258" height = "507"/>
+   <img src = "Images/mareunion_mainActivity.gif" width = "258" height = "507"/>
+   <img src = "Images/mareunion_CreateAcitivty1.gif" width = "258" height = "507"/>
+   <img src = "Images/mareunion_CreateActivity2.gif" width = "258" height = "507"/>
 </p>
 
 ## Technologies
